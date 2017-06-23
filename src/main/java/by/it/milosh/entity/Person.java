@@ -1,5 +1,10 @@
 package by.it.milosh.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 
 @Entity
@@ -19,6 +24,15 @@ public class Person {
 
     @Column(name = "age")
     private Integer age;
+
+    @ManyToOne
+    @JoinColumn(name = "address_id")
+    @JsonBackReference
+    private Address address;
+
+    @Transient
+    @JsonProperty
+    private transient Long adrs_id;
 
     public Person() {
     }
@@ -59,5 +73,21 @@ public class Person {
 
     public void setAge(Integer age) {
         this.age = age;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public Long getAddress_id() {
+        return adrs_id;
+    }
+
+    public void setAddress_id(Long adrs_id) {
+        this.adrs_id = adrs_id;
     }
 }

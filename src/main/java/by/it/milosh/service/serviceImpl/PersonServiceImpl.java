@@ -1,6 +1,8 @@
 package by.it.milosh.service.serviceImpl;
 
+import by.it.milosh.entity.Address;
 import by.it.milosh.entity.Person;
+import by.it.milosh.repository.AddressRepository;
 import by.it.milosh.repository.PersonRepository;
 import by.it.milosh.service.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +14,13 @@ import java.util.List;
 public class PersonServiceImpl implements PersonService {
 
     private PersonRepository personRepository;
+    private AddressRepository addressRepository;
 
     @Autowired
-    public PersonServiceImpl(PersonRepository personRepository) {
+    public PersonServiceImpl(PersonRepository personRepository,
+                             AddressRepository addressRepository) {
         this.personRepository = personRepository;
+        this.addressRepository = addressRepository;
     }
 
     @Override
@@ -44,8 +49,14 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public Person addT(Person T) {
-        return personRepository.save(T);
+    public Person addT(Person person) {
+        Long pid = person.getAddress_id();
+        Address ad = addressRepository.findOne(pid);
+        //System.out.println(person.getAddress().getStreet());
+        person.setAddress(addressRepository.findOne(person.getAddress_id()));
+        String strret = person.getAddress().getStreet();
+        System.out.println(person.getAddress().getStreet());
+        return personRepository.save(person);
     }
 
     @Override
@@ -56,6 +67,6 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public String deleteStringT(Long id) {
         personRepository.delete(id);
-        return "{'message': 'Person deleted successfully'}";
+        return "{'message': 'Person deleted successfully.'}";
     }
 }
