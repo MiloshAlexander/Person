@@ -24,13 +24,8 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public void save(Person person) {
+    public void add(Person person) {
 
-    }
-
-    @Override
-    public Person getEntityById(Long id) {
-        return null;
     }
 
     @Override
@@ -41,5 +36,26 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public void delete(Long id) {
 
+    }
+
+    @Override
+    public Person findOne(Long id) {
+        return personRepository.findOne(id);
+    }
+
+    @Override
+    public Person addT(Person T) {
+        return personRepository.save(T);
+    }
+
+    @Override
+    public void deleteT(Person person) {
+
+    }
+
+    @Override
+    public String deleteStringT(Long id) {
+        personRepository.delete(id);
+        return "{'message': 'Person deleted successfully'}";
     }
 }

@@ -1,2 +1,2 @@
 # Person
-Spring Boot 1.3, Maven.
+Spring Boot 1.3, Spring Data JPA, Maven.
