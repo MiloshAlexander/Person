@@ -20,22 +20,22 @@ public class JobScheduler {
         this.addressService = addressService;
     }
 
-    @Scheduled(fixedRate = 20000)
+    //@Scheduled(fixedRate = 20000)
     public void scheduleUsingRate() {
         logger.info(addressService.findOne(1L));
     }
 
-    @Scheduled(fixedDelay = 5000)
+    //@Scheduled(fixedDelay = 5000)
     public void scheduleUsingDelay() {
         logger.info(addressService.getAllAddresses());
     }
 
-    @Scheduled(fixedDelay = 5000, initialDelay = 5000)
+    //@Scheduled(fixedDelay = 5000, initialDelay = 5000)
     public void scheduleUsingFixedDelayWithInitialDelay() {
         logger.info(personService.findOne(1L));
     }
 
-    @Scheduled(cron = "*/5 * * * * *")
+    //@Scheduled(cron = "*/5 * * * * *")
     public void scheduleUsingCron() {
         logger.info(personService.getAllPersons());
     }
