@@ -4,8 +4,10 @@ import org.springframework.boot.autoconfigure.web.ErrorController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-public class IndexController implements ErrorController {
+
+//@RestController
+public class IndexController {
+        /*implements ErrorController {
     private static final String PATH_ERROR = "/error";
 
     @Override
@@ -17,5 +19,7 @@ public class IndexController implements ErrorController {
     public String error() {
         return "Page not found.";
     }
+    */
 
 }
+
