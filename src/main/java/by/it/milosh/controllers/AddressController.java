@@ -3,11 +3,12 @@ package by.it.milosh.controllers;
 import by.it.milosh.entity.Address;
 import by.it.milosh.service.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.awt.*;
 import java.util.List;
 
 @RestController
@@ -21,22 +22,33 @@ public class AddressController {
         this.addressService = addressService;
     }
 
-    @RequestMapping("/list")
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     public List<Address> getAllAdresses() {
         return addressService.getAllAddresses();
     }
 
-    @RequestMapping("/list/{id}")
+    @RequestMapping(value = "/list/{id}", method = RequestMethod.GET)
     public Address findOne(@PathVariable Long id) {
         return addressService.findOne(id);
     }
 
-    @RequestMapping("/add")
+    @RequestMapping(value = "/add", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Address addAddress(@RequestBody Address address) {
         return addressService.addT(address);
     }
 
-    @RequestMapping("/delete/{id}")
+    @RequestMapping(value = "/add", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Address> updateAddress(@RequestBody Address address) {
+        Long address_id = address.getAddress_id();
+        Address checkAddress = addressService.findOne(address_id);
+        if (checkAddress == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        addressService.addT(address);
+        return new ResponseEntity(address, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/delete/{id}")
     public String deleteStringAddress(@PathVariable Long id) {
         return addressService.deleteStringT(id);
     }

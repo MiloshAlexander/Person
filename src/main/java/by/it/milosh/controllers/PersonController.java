@@ -22,22 +22,22 @@ public class PersonController {
         this.personService = personService;
     }
 
-    @RequestMapping("/list")
+    @RequestMapping(value = "/list")
     public List<Person> getAllPersons() {
         return personService.getAllPersons();
     }
 
-    @RequestMapping("/list/{id}")
+    @RequestMapping(value = "/list/{id}")
     public Person findOne(@PathVariable Long id) {
         return personService.findOne(id);
     }
 
-    @RequestMapping("/add")
+    @RequestMapping(value = "/add")
     public Person addPerson(@RequestBody Person person) {
         return personService.addT(person);
     }
 
-    @RequestMapping("/delete/{id}")
+    @RequestMapping(value = "/delete/{id}")
     public String deleteStringPerson(@PathVariable Long id) {
         return personService.deleteStringT(id);
     }
